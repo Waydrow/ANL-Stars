@@ -1,0 +1,18 @@
+.clr {
+    clear: both;
+}
+
+.stu-info img {
+    height: 200px !important;
+    /*float: left;*/
+    /*display: block;*/
+}
+
+.stu-info > a {
+    display: block;
+}
+
+.stu-info h3 {
+    text-align: center;
+}
+
