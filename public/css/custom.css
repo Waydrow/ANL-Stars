@@ -1,0 +1,33 @@
+.clr {
+    clear: both;
+}
+
+.stu-info img {
+    height: 160px !important;
+    /*float: left;*/
+    /*display: block;*/
+}
+
+.stu-info > a {
+    display: block;
+}
+
+.stu-info h3 {
+    text-align: center;
+}
+
+.year {
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+/*
+.admin-btn {
+    float: right;
+    font-size: 14px;
+    color: #000 !important;
+}
+
+.admin-btn:hover {
+    color: #2aabd2 !important;
+}*/
