@@ -1,0 +1,60 @@
+<%- include header %>
+
+<div class="col-sm-10">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="row">
+                <div class="col-sm-12">
+                    <img class="img-rounded img-responsive center-block" src="<%= student.photo%>"
+                         style="max-height: 200px;">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 text-center">
+                    <h2 class="stu-page-name"><%= student.name%></h2>
+                    <p class="stu-page-year">
+                        <%= student.year%>届
+                        <% if (student.position == 0) {%>
+                            博士
+                        <%} else if (student.position == 1) {%>
+                            硕士
+                        <%} else {%>
+                            本科生
+                        <%}%>
+                    </p>
+                    <p class="stu-page-advisor">导师：<%= student.advisor%></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-9">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3>个人现状</h3>
+                    <h4><span>单位：</span><%= student.now %> </h4>
+                    <h4><span>职位：</span><%= student.job %> </h4>
+                    <!--<hr>-->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3>联系方式</h3>
+                    <h4><span>电话/微信：</span><%= student.phone %> </h4>
+                    <h4><span>邮箱：</span><%= student.email %> </h4>
+                    <!--<hr>-->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3>留言</h3>
+                    <p class="stu-page-message"><%= student.message%></p>
+                    <!--<hr>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<%- include footer %>

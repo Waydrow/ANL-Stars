@@ -28,7 +28,8 @@ router.get("/", function (req, res, next) {
         } else {
             res.render("index", {
                 students: students,
-                year: 2019
+                year: 2019,
+                num: students.length
             });
         }
     })
@@ -50,6 +51,19 @@ router.get("/:year/year", function (req, res, next) {
                 year: year,
                 num: num,
             });
+        }
+    })
+});
+
+router.get("/:stuid/info", function (req, res, next) {
+    Student.findOne({_id: req.params.stuid}, function (err, student) {
+        if (err || !student) {
+            req.flash('error', '未知的错误,请重试 (Unknow error... pls. try again)');
+            res.redirect('back');
+        } else {
+            res.render("info", {
+                student: student
+            })
         }
     })
 });

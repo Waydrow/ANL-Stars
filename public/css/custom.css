@@ -21,6 +21,20 @@
     padding-bottom: 20px;
 }
 
+.stu-page-year, .stu-page-advisor {
+    font-size: 18px;
+}
+
+.stu-page-message {
+    word-wrap:break-word;
+    word-break:break-all;
+    overflow: hidden;
+}
+
+/*.stu-page-name {
+    font-size: 26px;
+}*/
+
 /*
 .admin-btn {
     float: right;
