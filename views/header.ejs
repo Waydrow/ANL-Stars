@@ -10,6 +10,7 @@
 
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/custom.css">
     <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
     <!-- 警告：通过 file:// 协议访问页面时 Respond.js 不起作用 -->
@@ -30,55 +31,72 @@
 
 
 <div class="container">
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-default" style="padding: 5px;">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header" style="text-align: center;">
-                <!--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-                </button>-->
-                <a class="navbar-brand" href="/">ANL星辰榜</a>
+                </button>
+                <a class="navbar-brand" href="/" style="color: #333; font-size: 20px;">ANL星辰榜</a>
             </div>
 
-            <!--<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-                    <li><a href="#">Link</a></li>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav" style="font-size: 16px;">
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-graduation-cap" aria-hidden="true"></i> 学生类别 <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">One more separated link</a></li>
+                            <li><a href="#">本科生</a></li>
+                            <li><a href="#">硕士生</a></li>
+                            <li><a href="#">博士生</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-user" aria-hidden="true"></i> 指导教师 <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">吴帆老师</a></li>
+                            <li><a href="#">高晓沨老师</a></li>
+                            <li><a href="#">孔令和老师</a></li>
+                            <li><a href="#">傅洛伊老师</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-calendar" aria-hidden="true"></i> 毕业时间 <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <% for (var i = 0; i < 9; i++) {%>
+                                <li><a href="<%= 2019-i%>/year"><%= 2019 - i %></a></li>
+                            <% } %>
                         </ul>
                     </li>
                 </ul>
                 <form class="navbar-form navbar-left">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search">
+                        <input type="text" class="form-control" placeholder="输入姓名查询">
                     </div>
-                    <button type="submit" class="btn btn-default">Submit</button>
+                    <button type="submit" class="btn btn-default">查询</button>
                 </form>
-            </div>-->
-            <!--<div>
-                <a class="navbar-brand admin-btn" href="/admin">Admin Login</a>
-            </div>-->
+                <a class="navbar-brand" href="#" style="float: right; font-size: 16px;"><i class="fa fa-lock" aria-hidden="true"></i> 后台管理</a>
+            </div>
         </div>
     </nav>
 
     <div class="row">
-        <div class="col-sm-1 member-sidebar">
+        <div class="col-sm-12">
+            <!--<img class="img-responsive" src="img/banner.jpg" alt="Banner" width="100%">-->
+        </div>
+    </div>
+
+    <div class="row">
+        <!--<div class="col-sm-1 member-sidebar">
             <ul class="nav nav-list">
                 <li class="nav-header">毕业时间</li>
                 <% for (var i = 0; i < 9; i++) {%>
                     <li><a href="<%= 2019-i%>/year"><%= 2019 - i %></a></li>
                 <% } %>
             </ul>
-        </div>
+        </div>-->
