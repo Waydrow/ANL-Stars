@@ -44,6 +44,27 @@ function studentsByAdvisor(students) {
     return res;
 }
 
+
+router.get("/login", function (req, res) {
+    res.render('login');
+});
+
+router.post("/login", function (req, res) {
+    var username = req.body.username;
+    var password = req.body.password;
+    console.log(username)
+    if (username == 'admin' && password == 'anl2019') {
+        req.session.admin = {
+            username: username,
+            password: password
+        };
+        return res.redirect('http://anl.sjtu.edu.cn/stars/admin/admin');
+    } else {
+        req.flash('error', '帐号或密码错误');
+        res.redirect('back');
+    }
+});
+
 router.get("/", function (req, res, next) {
     Student.find({year: 2019}, function(err, students) {
         if (err) {
