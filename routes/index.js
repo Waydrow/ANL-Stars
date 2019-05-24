@@ -20,6 +20,30 @@ const Student = mongoose.model('Student');
 
 var root = path.join(__dirname, '../');
 
+function studentsByYear(students) {
+    var res = {};
+    for (var i = 0; i < students.length; i++) {
+        var year = students[i].year;
+        if (!res[year]) {
+            res[year] = []
+        }
+        res[year].push(students[i]);
+    }
+    return res;
+}
+
+function studentsByAdvisor(students) {
+    var res = {};
+    for (var i = 0; i < students.length; i++) {
+        var advisor = students[i].advisor;
+        if (!res[advisor]) {
+            res[advisor] = []
+        }
+        res[advisor].push(students[i]);
+    }
+    return res;
+}
+
 router.get("/", function (req, res, next) {
     Student.find({year: 2019}, function(err, students) {
         if (err) {
@@ -64,6 +88,68 @@ router.get("/:stuid/info", function (req, res, next) {
             res.render("info", {
                 student: student
             })
+        }
+    })
+});
+
+
+router.get("/:category/category", function (req, res, next) {
+    var category = req.params.category;
+    // -1降序 1升序
+    //Student.find({position: category}).sort({year: 1}).exec(function(err, students) {
+    Student.find({position: category}, function (err, students) {
+        if (err) {
+            req.flash('error', '未知的错误,请重试 (Unknow error... pls. try again)');
+            res.redirect('back');
+        } else {
+            var num = 0;
+            var result = {};
+            if (students) {
+                num = students.length;
+                result = studentsByYear(students);
+            }
+            res.render("list", {
+                result: result,
+                category: category,
+                num: num
+            });
+            //console.log(res)
+        }
+    })
+});
+
+router.get("/:advisor/advisor", function (req, res, next) {
+    var advisor = req.params.advisor;
+    if (advisor == 1) {
+        advisor = '吴帆';
+    } else if (advisor == 2) {
+        advisor = '高晓沨';
+    } else if (advisor == 3) {
+        advisor = '孔令和';
+    } else if (advisor == 4) {
+        advisor = '傅洛伊';
+    } else {
+        req.flash('error', '未知的错误,请重试 (Unknow error... pls. try again)');
+        res.redirect('back');
+    }
+    // -1降序 1升序
+    //Student.find({position: category}).sort({year: 1}).exec(function(err, students) {
+    Student.find({advisor: advisor}, function (err, students) {
+        if (err) {
+            req.flash('error', '未知的错误,请重试 (Unknow error... pls. try again)');
+            res.redirect('back');
+        } else {
+            var num = 0;
+            var result = {};
+            if (students) {
+                num = students.length;
+                result = studentsByYear(students);
+            }
+            res.render("list", {
+                result: result,
+                num: num
+            });
+            //console.log(res)
         }
     })
 });
