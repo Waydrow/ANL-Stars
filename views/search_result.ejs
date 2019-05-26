@@ -1,17 +1,17 @@
 <%- include header %>
 
 <div class="col-sm-11">
-    <h3 class="year"><%= year %>届毕业生</h3>
+    <h3 style="text-align: center">查找结果</h3>
     <div class="row">
         <% if (num) {%>
             <% for (var i = 0; i < students.length; i++) { %>
-                <div class="col-xs-6 col-sm-4 col-md-5ths">
+                <div class="col-sm-4 col-md-3">
                     <div class="thumbnail stu-info">
                         <a href="<%= students[i]._id%>/info">
                             <img src="<%= students[i].photo%>" alt="" class="img-responsive img-rounded">
                         </a>
                         <div class="caption">
-                            <h4><%= students[i].name %></h4>
+                            <h3><%= students[i].name %></h3>
                         </div>
                     </div>
                 </div>

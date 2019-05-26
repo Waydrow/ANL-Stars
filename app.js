@@ -50,6 +50,11 @@ app.use(bodyParser.urlencoded({extended: false}));
 //app.use(multer());
 app.use(session(sess));
 app.use(flash());
+app.use(function(req,res,next){
+    res.locals.success=req.flash('success').toString();
+    res.locals.error=req.flash('error').toString();
+    next();
+});
 //allow session in all view template
 app.use(function (req, res, next) {
     res.locals.session = req.session;

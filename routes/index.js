@@ -13,10 +13,13 @@ var express = require("express");
 var router = express.Router();
 var fs = require('fs');
 var path = require('path');
+const xlsx = require('node-xlsx');
 
 const mongoose = require('mongoose');
 // const User = mongoose.model('User');
 const Student = mongoose.model('Student');
+
+const base_url = "http://anl.sjtu.edu.cn/stars";
 
 var root = path.join(__dirname, '../');
 
@@ -52,17 +55,21 @@ router.get("/login", function (req, res) {
 router.post("/login", function (req, res) {
     var username = req.body.username;
     var password = req.body.password;
-    console.log(username)
     if (username == 'admin' && password == 'anl2019') {
         req.session.admin = {
             username: username,
             password: password
         };
-        return res.redirect('http://anl.sjtu.edu.cn/stars/admin/admin');
+        return res.redirect(base_url + '/admin/admin');
     } else {
         req.flash('error', '帐号或密码错误');
         res.redirect('back');
     }
+});
+
+router.get("/logout", function (req, res) {
+    req.session.admin = null;
+    res.redirect(base_url);
 });
 
 router.get("/", function (req, res, next) {
@@ -175,5 +182,61 @@ router.get("/:advisor/advisor", function (req, res, next) {
     })
 });
 
+router.post("/search", function (req, res, next) {
+    Student.find({name: {$regex: req.body.realname, $options: '$i'}}, function (err, students) {
+        if (err) {
+            req.flash('error', '未知的错误,请重试 (Unknow error... pls. try again)');
+            res.redirect('back');
+        } else {
+            var num = 0;
+            var result = {};
+            if (students) {
+                num = students.length;
+            }
+            res.render("search_result", {
+                students: students,
+                num: num
+            });
+            //console.log(res)
+        }
+    })
+});
+
+
+router.get('/uploadByExcel', function (req, res, next) {
+    var p = path.join(root, 'public/file/1.xlsx')
+    var obj = xlsx.parse(p);
+    var kong = obj[1].data;
+    for (var i = 1; i < kong.length; i++) {
+        var yy = kong[i][1];
+        if (!yy) {
+            continue;
+        }
+        yy = yy.substr(2);
+        //console.log(yy);
+        var po = 0;
+        if (kong[i][2].toString() == '本科') {
+            po = 3;
+        } else if (kong[i][2].toString() == '硕士') {
+            po = 2;
+        } else if (kong[i][2].toString() == '博士') {
+            po = 1;
+        }
+        var student = new Student({
+            name: kong[i][0],
+            year: yy,
+            position: po,
+            advisor: '高晓沨',
+            now: kong[i][3],
+            job: kong[i][4],
+            phone: kong[i][5],
+            email: kong[i][6],
+            message: kong[i][7]
+        });
+        student.save();
+    }
+    console.log('done');
+    //console.log(kong[0])
+});
 
 module.exports = router;

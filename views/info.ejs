@@ -1,8 +1,8 @@
 <%- include header %>
 
-<div class="col-sm-10">
+<div class="col-sm-10" style="margin-top: 30px; margin-bottom: 30px;">
     <div class="row">
-        <div class="col-sm-3">
+        <div class="col-sm-5">
             <div class="row">
                 <div class="col-sm-12">
                     <img class="img-rounded img-responsive center-block" src="<%= student.photo%>"
@@ -14,9 +14,9 @@
                     <h2 class="stu-page-name"><%= student.name%></h2>
                     <p class="stu-page-year">
                         <%= student.year%>届
-                        <% if (student.position == 0) {%>
+                        <% if (student.position == 1) {%>
                             博士
-                        <%} else if (student.position == 1) {%>
+                        <%} else if (student.position == 2) {%>
                             硕士
                         <%} else {%>
                             本科生
@@ -27,7 +27,7 @@
             </div>
         </div>
 
-        <div class="col-sm-9">
+        <div class="col-sm-7">
             <div class="row">
                 <div class="col-sm-12">
                     <h3>个人现状</h3>

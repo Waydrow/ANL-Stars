@@ -12,7 +12,7 @@
     display: block;
 }
 
-.stu-info h3 {
+.stu-info h4, .stu-info h5 {
     text-align: center;
 }
 
@@ -31,17 +31,31 @@
     overflow: hidden;
 }
 
-/*.stu-page-name {
-    font-size: 26px;
-}*/
-
-/*
-.admin-btn {
-    float: right;
-    font-size: 14px;
-    color: #000 !important;
+.table-hover>tbody>tr:hover {
+    background-color: #e6e6e6;
 }
 
-.admin-btn:hover {
-    color: #2aabd2 !important;
-}*/
+.col-xs-5ths, .col-sm-5ths, .col-md-5ths, .col-lg-5ths {
+    position: relative;
+    min-height: 1px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+@media ( min-width : 768px) {
+    .col-sm-5ths {
+        width: 20%;
+        float: left;
+    }
+}
+@media ( min-width : 992px) {
+    .col-md-5ths {
+        width: 20%;
+        float: left;
+    }
+}
+@media ( min-width : 1200px) {
+    .col-lg-5ths {
+        width: 20%;
+        float: left;
+    }
+}
