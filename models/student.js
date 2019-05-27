@@ -3,6 +3,7 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const schema = new mongoose.Schema({
     name: String,
+    letter: String, //姓名首字母缩写
     year: String, //毕业年份
     position: Number, //学位 博士=1，硕士=2，本科=3
     advisor: String, //导师

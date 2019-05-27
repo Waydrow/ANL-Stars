@@ -14,6 +14,7 @@ var router = express.Router();
 var fs = require('fs');
 var path = require('path');
 const xlsx = require('node-xlsx');
+const pinyin = require('pinyin');
 
 const mongoose = require('mongoose');
 // const User = mongoose.model('User');
@@ -24,29 +25,53 @@ const base_url = "http://anl.sjtu.edu.cn/stars";
 
 var root = path.join(__dirname, '../');
 
+
+/**
+ * 对数组中的对象，按对象的key进行sortType排序
+ * @param key 数组中的对象为object,按object中的key进行排序
+ * @param sortType true为降序；false为升序
+ */
+function keysort(key,sortType) {
+    return function(a,b){
+        return sortType ? ~~(a[key] < b[key]) : ~~(a[key] > b[key]);
+    }
+}
+
 function studentsByYear(students) {
     var res = {};
     for (var i = 0; i < students.length; i++) {
+        var name = students[i].name;
+
         var year = students[i].year;
         if (!res[year]) {
             res[year] = []
         }
         res[year].push(students[i]);
     }
+    // 排序对中文不起作用
+    /*Object.keys(res).forEach(function (j) {
+        res[j].sort(keysort('name', false))
+    });*/
     return res;
 }
 
-function studentsByAdvisor(students) {
-    var res = {};
-    for (var i = 0; i < students.length; i++) {
-        var advisor = students[i].advisor;
-        if (!res[advisor]) {
-            res[advisor] = []
+// 将数据库中的学生，添加名字首字母缩写
+/*router.get('/testPinyin', function (req, res) {
+    Student.find({}, function (err, students) {
+        for(var i = 0; i < students.length; i++) {
+            var name = pinyin(students[i].name, {
+                style: pinyin.STYLE_FIRST_LETTER
+            });
+            var tt = "";
+            for (var j = 0; j < name.length; j++) {
+                tt += name[j][0];
+            }
+            students[i].letter = tt;
+            students[i].save();
         }
-        res[advisor].push(students[i]);
-    }
-    return res;
-}
+        console.log("done")
+    });
+});*/
 
 
 router.get("/login", function (req, res) {
@@ -74,7 +99,7 @@ router.get("/logout", function (req, res) {
 });
 
 router.get("/", function (req, res, next) {
-    Student.find({year: 2019}, function(err, students) {
+    Student.find({year: 2019}).sort({letter: 1}).exec(function(err, students) {
         if (err) {
             req.flash('error', '未知的错误,请重试 (Unknow error... pls. try again)');
             res.redirect('back');
@@ -90,7 +115,7 @@ router.get("/", function (req, res, next) {
 
 router.get("/:year/year", function (req, res, next) {
     var year = req.params.year;
-    Student.find({year: year}, function(err, students) {
+    Student.find({year: year}).sort({letter: 1}).exec(function(err, students) {
         if (err) {
             req.flash('error', '未知的错误,请重试 (Unknow error... pls. try again)');
             res.redirect('back');
@@ -126,7 +151,7 @@ router.get("/:category/category", function (req, res, next) {
     var category = req.params.category;
     // -1降序 1升序
     //Student.find({position: category}).sort({year: 1}).exec(function(err, students) {
-    Student.find({position: category}, function (err, students) {
+    Student.find({position: category}).sort({letter: 1}).exec(function (err, students) {
         if (err) {
             req.flash('error', '未知的错误,请重试 (Unknow error... pls. try again)');
             res.redirect('back');
@@ -165,7 +190,7 @@ router.get("/:advisor/advisor", function (req, res, next) {
     }
     // -1降序 1升序
     //Student.find({position: category}).sort({year: 1}).exec(function(err, students) {
-    Student.find({advisor: advisor}, function (err, students) {
+    Student.find({advisor: advisor}).sort({letter: 1}).exec(function (err, students) {
         if (err) {
             req.flash('error', '未知的错误,请重试 (Unknow error... pls. try again)');
             res.redirect('back');
@@ -196,7 +221,7 @@ router.get("/:advisor/advisor", function (req, res, next) {
 });
 
 router.post("/search", function (req, res, next) {
-    Student.find({name: {$regex: req.body.realname, $options: '$i'}}, function (err, students) {
+    Student.find({name: {$regex: req.body.realname, $options: '$i'}}).sort({letter: 1}).exec(function (err, students) {
         if (err) {
             req.flash('error', '未知的错误,请重试 (Unknow error... pls. try again)');
             res.redirect('back');
@@ -215,7 +240,8 @@ router.post("/search", function (req, res, next) {
     })
 });
 
-
+// excel上传成员信息
+/*
 router.get('/uploadByExcel', function (req, res, next) {
     var p = path.join(root, 'public/file/1.xlsx')
     var obj = xlsx.parse(p);
@@ -251,5 +277,6 @@ router.get('/uploadByExcel', function (req, res, next) {
     console.log('done');
     //console.log(kong[0])
 });
+*/
 
 module.exports = router;

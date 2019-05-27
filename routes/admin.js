@@ -4,6 +4,7 @@ var router = express.Router();
 var fs = require('fs');
 var path = require('path');
 const multer = require('multer');
+const pinyin = require('pinyin');
 
 const mongoose = require('mongoose');
 // const User = mongoose.model('User');
@@ -45,6 +46,14 @@ router.post("/admin", uploadPhoto.single('photo'), function (req, res, next) {
         email: req.body.mail,
         message: req.body.message,
     });
+    var name = pinyin(student.name, {
+        style: pinyin.STYLE_FIRST_LETTER
+    });
+    var tt = "";
+    for (var j = 0; j < name.length; j++) {
+        tt += name[j][0];
+    }
+    student.letter = tt;
     if (req.file) {
         student.photo = 'photo/' + req.file.filename;
     }
@@ -82,6 +91,14 @@ router.post("/:id/changeInfo", uploadPhoto.single('photo'), function (req, res, 
         student.phone = req.body.phone;
         student.email = req.body.mail;
         student.message = req.body.message;
+        var name = pinyin(student.name, {
+            style: pinyin.STYLE_FIRST_LETTER
+        });
+        var tt = "";
+        for (var j = 0; j < name.length; j++) {
+            tt += name[j][0];
+        }
+        student.letter = tt;
         if (req.file) {
             student.photo = 'photo/' + req.file.filename;
         }

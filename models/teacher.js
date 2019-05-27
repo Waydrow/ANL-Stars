@@ -6,6 +6,7 @@ const schema = new mongoose.Schema({
     title: String, //教授/副教授等
     tag: String, //杰青等
     info: String,
+    link: String,
     //照片
     photo: {
         type: String,

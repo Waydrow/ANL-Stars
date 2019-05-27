@@ -1,11 +1,19 @@
 <%- include header %>
+<style>
+    .mid-col {
+        display: inline-block;
+        float: none;
+        vertical-align: middle;
+    }
+</style>
 <!--指导老师-->
 <% if (typeof(advisor) != "undefined") { %>
-    <div class="col-sm-12" style="padding: 20px 0 10px 0; border-bottom: solid gray 0.5px">
-        <div class="col-sm-3" style="padding: 0;">
+    <div class="col-sm-12" style="padding: 20px 0 10px 0; border-bottom: solid gray 0.5px; text-align: center">
+        <div class="col-sm-3 mid-col" style="padding: 0;">
             <div class="row">
                 <div class="col-sm-12">
-                    <img src="<%= teacher.photo %>" width="140px" class="img-thumbnail img-responsive img-rounded center-block">
+                    <a href="<%= teacher.link %>" target="_blank" class="img-thumbnail">
+                    <img src="<%= teacher.photo %>" width="140px" class="img-responsive img-rounded center-block"></a>
                 </div>
             </div>
             <div class="row">
@@ -15,12 +23,13 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-8" style="font-size: 16px">
+        <div class="col-sm-8 mid-col" style="font-size: 16px; text-align: left;">
             <p><%= teacher.info %></p>
         </div>
     </div>
 <% } %>
 
+<!--按学位分类-->
 <% if (typeof(category) != "undefined") { %>
     <h2 style="text-align: center; padding-bottom: 20px; border-bottom: solid gray 0.5px;">
     <% if (category == 1) { %>
@@ -63,3 +72,23 @@
 <% }) %>
 
 <%- include footer %>
+
+<a href="javascript:void(0);" class="go_top"></a>
+
+<script>
+$(function() {
+
+    var $goTop = $(".go_top");
+    $goTop.addClass("hide");
+    $(window).scroll(function() {
+
+        t = $(window).scrollTop();
+        if (t > 200) {
+            $goTop.removeClass("hide");
+        } else {
+            $goTop.addClass("hide");
+        }
+    });
+    $($goTop).click(function() { $("body,html").animate({ "scrollTop": 0 }, 500); });
+});
+</script>
