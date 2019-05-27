@@ -31,7 +31,7 @@ fs.readdirSync(models)
 
 const User = mongoose.model('User');
 const Student = mongoose.model('Student');
-
+const Teacher = mongoose.model('Teacher');
 
 const sess = {
     secret: 'keyboard cat',

@@ -1,4 +1,36 @@
 <%- include header %>
+<!--指导老师-->
+<% if (typeof(advisor) != "undefined") { %>
+    <div class="col-sm-12" style="padding: 20px 0 10px 0; border-bottom: solid gray 0.5px">
+        <div class="col-sm-3" style="padding: 0;">
+            <div class="row">
+                <div class="col-sm-12">
+                    <img src="<%= teacher.photo %>" width="140px" class="img-thumbnail img-responsive img-rounded center-block">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12" style="text-align: center;">
+                    <h3><%= teacher.name %><%= teacher.title%></h3>
+                    <h4><%= teacher.tag %></h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8" style="font-size: 16px">
+            <p><%= teacher.info %></p>
+        </div>
+    </div>
+<% } %>
+
+<% if (typeof(category) != "undefined") { %>
+    <h2 style="text-align: center; padding-bottom: 20px; border-bottom: solid gray 0.5px;">
+    <% if (category == 1) { %>
+        博士生名录
+    <% } else if (category == 2) { %>
+        硕士生名录
+    <% } else if (category == 3) { %>
+        本科生名录
+    <% }%></h2>
+<% } %>
 
 <% Object.keys(result).reverse().forEach(function (j) {%>
 

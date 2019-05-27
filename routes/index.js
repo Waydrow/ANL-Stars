@@ -18,6 +18,7 @@ const xlsx = require('node-xlsx');
 const mongoose = require('mongoose');
 // const User = mongoose.model('User');
 const Student = mongoose.model('Student');
+const Teacher = mongoose.model('Teacher');
 
 const base_url = "http://anl.sjtu.edu.cn/stars";
 
@@ -156,9 +157,11 @@ router.get("/:advisor/advisor", function (req, res, next) {
         advisor = '孔令和';
     } else if (advisor == 4) {
         advisor = '傅洛伊';
+    } else if (advisor == 0) {
+        advisor = '陈贵海';
     } else {
         req.flash('error', '未知的错误,请重试 (Unknow error... pls. try again)');
-        res.redirect('back');
+        return res.redirect('back');
     }
     // -1降序 1升序
     //Student.find({position: category}).sort({year: 1}).exec(function(err, students) {
@@ -173,10 +176,20 @@ router.get("/:advisor/advisor", function (req, res, next) {
                 num = students.length;
                 result = studentsByYear(students);
             }
-            res.render("list", {
-                result: result,
-                num: num
-            });
+            Teacher.findOne({name: advisor}, function (err1, teacher) {
+                if (err1) {
+                    req.flash('error', '未知的错误,请重试 (Unknow error... pls. try again)');
+                    res.redirect('back');
+                } else {
+                    res.render("list", {
+                        result: result,
+                        num: num,
+                        advisor: req.params.advisor,
+                        teacher: teacher
+                    });
+                }
+            })
+
             //console.log(res)
         }
     })
