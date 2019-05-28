@@ -64,12 +64,18 @@
 .go_top {
     position: fixed;
     bottom: 14%;
-    right: 50%;
+    right: 53.5%;
     margin-right: -710px;
     width: 60px;
     height: 60px;
     display: block;
     background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8AgMAAABHkjHhAAAACVBMVEV/f3+AgID///+BmPJZAAAAY0lEQVQoz2NgYGSgADgwjCwA8y8LuoQIGj8Tlcu4CjWk2FZNQOFLrVqCws9qW4mqHdUAthUMWROQ3CO1gEEK2YCsBgY2ZANWgYxAcJlWQNTAANcCiBlwPkiKDchnHG7xNuwAAEjcEnzUYcX0AAAAAElFTkSuQmCC);
+}
+
+@media ( min-width : 1450px) {
+    .go_top {
+        right: 50%;
+    }
 }
 
 .hide {
