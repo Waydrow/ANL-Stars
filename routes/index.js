@@ -124,9 +124,10 @@ router.get("/:year/year", function (req, res, next) {
             if (students) {
                 num = students.length;
             }
-            res.render("index", {
-                students: students,
-                year: year,
+            var result = {};
+            result[year] = students;
+            res.render("list", {
+                result: result,
                 num: num,
             });
         }

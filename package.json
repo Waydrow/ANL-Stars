@@ -1,10 +1,10 @@
 {
-  "name": "ska-2018-website",
+  "name": "anl-stars",
   "version": "1.0.0",
   "author": "Zuowu Zheng",
   "private": true,
   "scripts": {
-    "start": "forever start -a -l forever.log -o output.log -e error.log app.js",
+    "start": "forever start app.js",
     "stop": "forever stop app.js",
     "restart": "forever restart app.js",
     "test": "node app.js"
